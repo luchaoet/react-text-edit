@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import styles from './index.scss';
-// import { Input, Button } from './components';
+import './index.scss';
 
 function TextEdit(props) {
-  const { value, onOk, disabled=false, editText='编辑' } = props;
+  const { value, onOk, onCancel, disabled=false, editText='编辑', maxLength } = props;
   const [inputValue, setInputValue] = useState(value);
   const [editStatus, setEditStatus] = useState(false);
 
   function inputChange(val) {
-      console.log(val)
     setInputValue(val)
   }
 
   function cancel() {
-    setInputValue(value)
-    setEditStatus(false)
+		if(onCancel)onCancel();
+    setInputValue(value);
+		setEditStatus(false);
   }
 
   function ok() {
@@ -34,7 +33,7 @@ function TextEdit(props) {
 
   return editStatus ? (
     <div className='text-editing-wrap'>
-      <input value={inputValue} onChange={(val)=> inputChange(val.target.value)} />
+      <input value={inputValue} maxLength={maxLength} onChange={(val)=> inputChange(val.target.value)} />
       <p>
         <button className='text-editing-button-ok' onClick={()=> ok()}>确定</button>
         <button className='text-editing-button-cancel' onClick={()=> cancel()}>取消</button>
