@@ -6,7 +6,26 @@ function TextEdit(props) {
   const [inputValue, setInputValue] = useState(value);
   const [editStatus, setEditStatus] = useState(false);
 
-  function inputChange(val) {
+  return editStatus ? (
+    <div className='text-editing-wrap'>
+      <input value={inputValue} maxLength={maxLength} onChange={(val)=> inputChange(val.target.value)} />
+      <p>
+        <button className='text-editing-button-ok' onClick={()=> ok()}>确定</button>
+        <button className='text-editing-button-cancel' onClick={()=> cancel()}>取消</button>
+      </p>
+    </div>
+  ) : (
+    <div className='text-edit-wrap'>
+      <span className='text'>{inputValue}</span>
+      <button
+        className='edit-button'
+        onClick={()=>setEditStatus(true)}
+        disabled={disabled}
+      >{editText}</button>
+    </div>
+	)
+	
+	function inputChange(val) {
     setInputValue(val)
   }
 
@@ -30,25 +49,6 @@ function TextEdit(props) {
       }
     )
   }
-
-  return editStatus ? (
-    <div className='text-editing-wrap'>
-      <input value={inputValue} maxLength={maxLength} onChange={(val)=> inputChange(val.target.value)} />
-      <p>
-        <button className='text-editing-button-ok' onClick={()=> ok()}>确定</button>
-        <button className='text-editing-button-cancel' onClick={()=> cancel()}>取消</button>
-      </p>
-    </div>
-  ) : (
-    <div className='text-edit-wrap'>
-      <span className='text'>{inputValue}</span>
-      <button
-        className='edit-button'
-        onClick={()=>setEditStatus(true)}
-        disabled={disabled}
-      >{editText}</button>
-    </div>
-  )
 }
 
 export default TextEdit;
