@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TextEdit from '../src'
+// import TextEdit from 'react-text-edit'
 
 function App() {
 	const [text, setText] = useState('react-text-edit');
